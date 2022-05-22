@@ -18,7 +18,9 @@ import styled from 'styled-components';
 // Este método, y esto es lo interesante, devuelve un nuevo componente botón con un estilo indicado entre los backsticks
 // y con clases generadas con nombres que no se van a repetir en ningún componente.
 // Al botón que se devuelve se le pueden seguir aplicando los props, etc. que se pasen desde otro componente.
+
 const Button = styled.button`
+  width: 100%;
   font: inherit;
   padding: 0.5rem 1.5rem;
   border: 1px solid #8b005d;
@@ -26,6 +28,11 @@ const Button = styled.button`
   background: #8b005d;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.26);
   cursor: pointer;
+
+  // Usando styled components con Media Queries
+  @media (min-width: 768px) {
+    width: auto;
+  }
 
   &:focus {
     outline: none;

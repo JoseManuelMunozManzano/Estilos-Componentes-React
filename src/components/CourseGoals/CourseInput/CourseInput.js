@@ -6,6 +6,9 @@ import './CourseInput.css';
 
 // Usando StyledComponent de forma dinámica (para la parte invalid)
 // Sustituimos abajo el <div></div> por este <FormControl></FormControl>
+//
+// El prop invalid se usa aquí. Notar que hemos quitado los estilos propios de invalid, ya que ahora se
+// usan de forma dinámica con los props
 const FormControl = styled.div`
   margin: 0.5rem 0;
 
@@ -13,12 +16,14 @@ const FormControl = styled.div`
     font-weight: bold;
     display: block;
     margin-bottom: 0.5rem;
+    color: ${(props) => (props.invalid ? 'red' : 'black')}
   }
 
   & input {
     display: block;
     width: 100%;
-    border: 1px solid #ccc;
+    border: 1px solid ${(props) => (props.invalid ? 'red' : '#ccc')};
+    background: ${(props) => (props.invalid ? '#ffd7d7' : 'transparent')}
     font: inherit;
     line-height: 1.5rem;
     padding: 0 0.25rem;
@@ -28,15 +33,6 @@ const FormControl = styled.div`
     outline: none;
     background: #fad0ec;
     border-color: #8b005d;
-  }
-
-  &.invalid input {
-    border-color: red;
-    background: #ffd7d7;
-  }
-
-  &.invalid label {
-    color: red;
   }
 `;
 
@@ -63,11 +59,13 @@ const CourseInput = (props) => {
     props.onAddGoal(enteredValue);
   };
 
-  // Forma 1 de hacer la parte dinámica (invalid)
-  // En FormControl sólo tenemos que indicar invalid o '' porque el resto del CSS ya forma parte de FormControl
+  // Forma 2 de hacer la parte dinámica (invalid)
+  // Se pueden informar props en los styled components y utilizarlos en los backsticks (en los estilos) para
+  // cambiarlos fácilmente de forma dinámica
+  // Aquí se indica el prop invalid
   return (
     <form onSubmit={formSubmitHandler}>
-      <FormControl className={!isValid ? 'invalid' : ''}>
+      <FormControl invalid={!isValid}>
         <label>Course Goal</label>
         <input type="text" onChange={goalInputChangeHandler} />
       </FormControl>

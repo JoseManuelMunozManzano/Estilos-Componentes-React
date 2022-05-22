@@ -26,18 +26,16 @@ const CourseInput = (props) => {
     props.onAddGoal(enteredValue);
   };
 
-  // Los estilos en línea no gustan mucho porque tienen una prioridad muy alta y anula todos los demás estilos CSS.
-  // Nuestros estilos predeterminados (colores por ejemplo) habría que duplicarlos en estos estilos en línea
-  // para que volvieran a aparecer (ver el color #ccc)
+  // Como alternativa se puede agregar una nueva clase dinámicamente solo si el valor ingresado no es válido
+  // (clave invalid) y en el fichero CourseInput.css se configuran las propiedades de esa clase invalid.
+  //
+  // Esto tiene de bueno que se vuelve a trabajar solo con clases y archivos CSS y se pueden agregar/quitar clases
+  // dinámicamente muy fácilmente
   return (
     <form onSubmit={formSubmitHandler}>
-      <div className="form-control">
-        <label style={{ color: !isValid ? 'red' : 'black' }}>Course Goal</label>
-        <input
-          style={{ borderColor: !isValid ? 'red' : '#ccc', background: !isValid ? 'salmon' : 'transparent' }}
-          type="text"
-          onChange={goalInputChangeHandler}
-        />
+      <div className={`form-control ${!isValid ? 'invalid' : ''}`}>
+        <label>Course Goal</label>
+        <input type="text" onChange={goalInputChangeHandler} />
       </div>
       <Button type="submit">Add Goal</Button>
     </form>

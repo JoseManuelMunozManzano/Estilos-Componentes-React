@@ -18,6 +18,8 @@ import styles from './Button.module.css';
 //
 // La clase generada se compone de: Componente_propertie__claveHash
 // Por ejemplo: Button_button__2lgkF
+//
+// Se ha añadido una Media Query en Button.module.css. No hay que hacer nada más para que funcionen.
 const Button = (props) => {
   return (
     <button type={props.type} className={styles.button} onClick={props.onClick}>
